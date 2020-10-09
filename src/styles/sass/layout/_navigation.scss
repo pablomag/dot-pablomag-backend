@@ -1,0 +1,15 @@
+.burger-wrapper {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.7rem;
+    background-color: transparent;
+    z-index: 1;
+
+    .burger {
+        position: sticky;
+        color: var(--clr-light);
+        background-color: var(--clr-dark);
+        padding: 0.2rem 0.6rem 0.1rem 0.6rem;
+        border-radius: 0.2rem;
+    }
+}

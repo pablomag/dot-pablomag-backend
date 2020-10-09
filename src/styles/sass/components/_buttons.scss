@@ -1,0 +1,45 @@
+.btn {
+    cursor: pointer;
+    padding: 0.5em 2em;
+    margin: 1em 2em;
+    border-radius: 0.5em;
+    text-align: center;
+    user-select: none;
+}
+
+.btn-controls {
+    background-color: var(--clr-secondary);
+    color: var(--clr-light);
+
+    &:hover,
+    &:active {
+        background-color: var(--clr-light);
+        color: var(--clr-dark);
+    }
+}
+
+.btn-submit {
+    background-color: var(--clr-primary);
+    color: var(--clr-light);
+
+    &:hover,
+    &:active {
+        background-color: var(--clr-light);
+        color: var(--clr-primary);
+    }
+}
+
+.btn-preview {
+    background-color: var(--clr-accent-dark);
+    color: var(--clr-light);
+
+    &:hover,
+    &:active {
+        background-color: var(--clr-light);
+        color: var(--clr-accent);
+    }
+}
+
+.btn--link {
+    text-decoration: none;
+}

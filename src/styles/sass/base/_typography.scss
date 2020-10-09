@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Slabo+27px:400");
+@import url("https://fonts.googleapis.com/css?family=Bitter");
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:400");
+@import url("https://fonts.googleapis.com/css?family=Oxygen");
+@import url("https://fonts.googleapis.com/css?family=Asap");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
+@import url("https://fonts.googleapis.com/css?family=Coustard&display=swap");
+
+:root {
+    --ff-pablomag: "Coustard", sans-serif;
+    --ff-title: "Slabo 27px", serif;
+    --ff-subtitle: "Bitter", serif;
+    --ff-body: "Fira Sans", sans-serif;
+    --ff-side: "Asap", sans-serif;
+    --ff-notes: "Oxygen", sans-serif;
+    --ff-code: "Inconsolata", monospace;
+
+    --fs-xxs: 0.7rem;
+    --fs-xs: 0.8rem;
+    --fs-small: 0.9rem;
+    --fs-normal: 1rem;
+    --fs-base: 1.1rem;
+    --fs-big: 1.2rem;
+    --fs-h1: 4.675rem;
+    --fs-h2: 2.875rem;
+    --fs-h3: 2.25rem;
+    --fs-h4: 1.75rem;
+    --fs-h5: 1.25rem;
+    --fs-xl: 6rem;
+}

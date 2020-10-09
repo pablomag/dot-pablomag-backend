@@ -1,0 +1,70 @@
+@mixin font(
+    $font-family: var(--ff-body),
+    $font-size: var(--fs-base),
+    $color: var(--clr-dark)
+) {
+    font: {
+        family: $font-family;
+        size: $font-size;
+    }
+    color: $color;
+}
+
+@mixin post-title--base(
+    $margin-top,
+    $line-height,
+    $letter-spacing,
+    $font-size
+) {
+    width: 100%;
+    text-align: center;
+    margin-top: $margin-top;
+    line-height: $line-height;
+    letter-spacing: $letter-spacing;
+    @include font(var(--ff-title), $font-size, var(--clr-dark));
+}
+
+@mixin post-title--big() {
+    @include post-title--base(0, 6.25rem, 0.065rem, var(--fs-h1));
+}
+
+@mixin post-title--small() {
+    @include post-title--base(1.25rem, 2.5rem, 0, var(--fs-h3));
+}
+
+@mixin post-title--tiny() {
+    @include post-title--base(0.9rem, 1.8rem, 0, var(--fs-h5));
+}
+
+@mixin element--base($opacity, $font-size, $top, $left) {
+    opacity: $opacity;
+    font-size: $font-size;
+    margin-top: $top;
+    margin-left: $left;
+}
+
+@mixin element--big() {
+    @include element--base(0, var(--fs-h1), -3rem, -3rem);
+}
+
+@mixin element--small() {
+    @include element--base(0, var(--fs-xs), -3rem, 0);
+}
+
+@mixin element--normal() {
+    @include element--base(1, var(--fs-big), 0, 0);
+}
+
+@mixin burger--hide() {
+    opacity: 0;
+    cursor: default;
+    user-select: none;
+    pointer-events: none;
+    animation: fade-out 200ms ease-in !important;
+}
+
+@mixin burger--show() {
+    opacity: 1;
+    cursor: pointer;
+    animation: fade-in 400ms ease-out !important;
+}

@@ -1,0 +1,79 @@
+.unclickable {
+    pointer-events: none;
+    user-select: none;
+}
+
+.draggable {
+    cursor: grab;
+}
+
+.deleted {
+    display: none;
+}
+
+.hero {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    height: 10rem;
+
+    img {
+        display: block;
+        object-fit: cover;
+        max-width: 100%;
+        max-height: auto;
+    }
+}
+
+.input {
+    display: block;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    width: 20rem;
+    height: fit-content;
+    color: var(--clr-dark);
+    background-color: var(--clr-light);
+    opacity: 0.5;
+    border: 0.25rem solid var(--clr-dark);
+    font-family: var(--ff-body);
+    font-weight: 600;
+    padding: 0.2rem;
+
+    &:focus {
+        opacity: 1;
+        border: 0.25rem solid var(--clr-dark);
+    }
+}
+
+.textarea {
+    height: 6em;
+}
+
+.controls {
+    user-select: none;
+}
+
+.button-element {
+    position: absolute;
+    cursor: pointer;
+    height: 1.2rem;
+    top: 0.5rem;
+    padding: 0.1rem 0.2rem;
+    color: var(--clr-light);
+    font-size: var(--fs-h5);
+    opacity: 0.5;
+    background-color: var(--clr-dark);
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &__remove {
+        right: 0.5rem;
+    }
+
+    &__edit {
+        right: 2.5rem;
+    }
+}

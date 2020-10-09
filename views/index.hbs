@@ -1,0 +1,16 @@
+<main>
+    <div class="sign-in">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+        {{#if user}}
+        <div>
+            <button class="btn" id="get-profile">{{ user.name}}</button>
+            <button class="btn" id="google-sign-out">Sign out</button>
+        </div>
+
+        <div>
+            <a class="btn btn--link" href="post/create">CREATE POST</a>
+        </div>
+        {{/if}}
+    </div>
+</main>

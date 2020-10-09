@@ -1,0 +1,30 @@
+.list--wrapper {
+    width: 90wv;
+    margin: 3em 3em 5em;
+}
+
+.list--row {
+    margin: 0 0 1em;
+}
+
+.list--date {
+    font-size: var(--fs-xxs);
+    color: var(--clr-dark);
+}
+
+.list--title {
+    font-size: var(--fs-normal);
+    color: var(--clr-dark);
+}
+
+.list--slug {
+    font-size: var(--fs-xs);
+    a {
+        color: var(--clr-accent-dark);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--clr-primary);
+        }
+    }
+}

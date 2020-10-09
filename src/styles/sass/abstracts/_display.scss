@@ -1,0 +1,32 @@
+.init {
+    opacity: 0;
+    cursor: default;
+    user-select: none;
+    pointer-events: none;
+}
+
+.hide {
+    @include burger--hide();
+}
+
+.show {
+    @include burger--show();
+}
+
+@keyframes fade-in {
+    0% {
+        @include element--big();
+    }
+    100% {
+        @include element--normal();
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        @include element--normal();
+    }
+    100% {
+        @include element--small();
+    }
+}

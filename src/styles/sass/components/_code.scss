@@ -1,0 +1,54 @@
+.code-block {
+    padding: 1rem 2rem;
+    line-height: 1rem;
+    background-color: var(--clr-primary);
+    @include font(var(--ff-code), var(--ff-body), var(--clr-light));
+}
+
+.code-block-copy {
+    position: relative;
+    float: right;
+    top: 0.5rem;
+    color: var(--clr-light);
+    cursor: pointer;
+    opacity: 0;
+}
+
+.dynamic-tooltip {
+    float: right;
+    margin-top: -0.6rem;
+    margin-right: -7.4rem;
+}
+
+.tooltip-copied:after {
+    content: var(--msg-code-copied);
+    display: flex;
+    opacity: 1;
+    background: rgb(44, 44, 44);
+    width: max-content;
+    height: max-content;
+    letter-spacing: 0.025rem;
+    padding: 0.2rem 1rem;
+    font-size: var(--fs-xs);
+    color: var(--clr-light);
+    border-radius: 0.3rem;
+    box-shadow: 0.2rem 0.2rem 0.1rem rgba(0, 0, 0, 0.35);
+    animation: show-tooltip-animation 750ms ease-out;
+    transform-origin: 0 55px;
+}
+
+@keyframes show-tooltip-animation {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    15%,
+    90% {
+        opacity: 1;
+        transform: scale(1);
+        background: rgb(44, 44, 44);
+    }
+    100% {
+        opacity: 0;
+    }
+}

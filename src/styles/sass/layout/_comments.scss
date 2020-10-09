@@ -1,0 +1,29 @@
+.comments {
+    border-top: 0.1rem solid var(--clr-accent);
+    margin: 2rem 0 8rem;
+
+    h1 {
+        margin: 2rem 0 -1rem;
+        @include font(var(--ff-side), var(--fs-h5), var(--clr-dark));
+    }
+
+    p {
+        @include font(var(--ff-notes), var(--fs-small), var(--clr-accent-dark));
+    }
+
+    @media (min-width: 600px) {
+        margin: 2rem 0 8rem;
+
+        h1 {
+            @include font(var(--ff-side), var(--fs-h4), var(--clr-dark));
+        }
+
+        p {
+            @include font(
+                var(--ff-notes),
+                var(--fs-small),
+                var(--clr-accent-dark)
+            );
+        }
+    }
+}

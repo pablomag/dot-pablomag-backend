@@ -1,0 +1,107 @@
+.sticky-title {
+    display: flex;
+    position: sticky;
+    top: 0;
+    min-height: 20rem;
+    margin: 4rem 6rem 0;
+    justify-content: center;
+}
+
+.stuck-title {
+    min-height: 10rem;
+    height: auto;
+    padding: 0 4.5rem 2rem 4.5rem;
+    margin: 0;
+
+    .post-title {
+        @include post-title--small();
+        transition: all 300ms ease-in-out;
+
+        @media (min-width: 600px) {
+            animation: shrink-text-animation 400ms ease-out;
+        }
+    }
+
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 80%,
+        rgba(255, 255, 255, 0) 90%,
+        rgba(255, 255, 255, 0) 100%
+    );
+
+    @media (min-width: 600px) {
+        padding: 0 4.5rem;
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 1) 70%,
+            rgba(255, 255, 255, 0) 85%,
+            rgba(255, 255, 255, 0) 100%
+        );
+    }
+}
+
+.unstuck-title {
+    .post-title {
+        @include post-title--small();
+        padding: 6rem 0 9rem 0;
+        transition: all 300ms ease-in-out;
+
+        @media (min-width: 600px) {
+            @include post-title--big();
+            animation: grow-text-animation 400ms ease-out;
+        }
+    }
+}
+
+.subtitle,
+.text,
+.tip,
+.code-block {
+    display: flex;
+    position: relative;
+}
+
+.post-content {
+    padding-bottom: 5em;
+}
+
+.post-subtitle {
+    text-transform: uppercase;
+    font-weight: bold;
+    @include font(var(--ff-subtitle), var(--fs-h5), var(--clr-dark));
+}
+
+.post-note {
+    background-color: var(--clr-accent);
+    padding: 1rem 2rem;
+    margin: 2rem 0;
+    border-radius: 0.5rem;
+    border-left: 1rem solid var(--clr-primary);
+    @include font(var(--ff-notes), var(--fs-small), var(--clr-dark));
+}
+
+@keyframes shrink-text-animation {
+    0% {
+        @include post-title--big();
+    }
+    50% {
+        color: rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        @include post-title--small();
+    }
+}
+
+@keyframes grow-text-animation {
+    0% {
+        @include post-title--small();
+    }
+    50% {
+        color: rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        @include post-title--big();
+    }
+}

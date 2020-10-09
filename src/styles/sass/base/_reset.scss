@@ -1,0 +1,41 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Fira Sans", "Trebuchet MS", "Arial", sans-serif;
+    min-height: 100vh;
+    background: var(--clr-dark);
+    color: var(--clr-light);
+}
+
+body,
+#root {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+.btn {
+    cursor: pointer;
+    border: 0;
+    background: var(--clr-secondary);
+    border-radius: 100vw;
+    color: var(--clr-light);
+    font-weight: bold;
+    padding: 0.5em 1.5em;
+}

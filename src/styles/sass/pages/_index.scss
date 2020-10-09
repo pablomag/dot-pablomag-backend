@@ -1,0 +1,18 @@
+.sign-in {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
+    margin: 3em auto 0;
+    min-height: 50vh;
+    width: 80vw;
+    flex-direction: column;
+
+    div {
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+        flex-shrink: 0;
+        flex-grow: 1;
+    }
+}

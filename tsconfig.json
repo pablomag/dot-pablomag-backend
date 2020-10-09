@@ -23,6 +23,10 @@
         "baseUrl": ".",
         "skipLibCheck": true
     },
-    "exclude": ["node_modules"],
-    "include": ["./src/**/*.tsx", "./src/**/*.ts"]
+    "exclude": ["node_modules", "./src/scripts/main/**/*.ts"],
+    "include": [
+        "./src/**/*.tsx",
+        "./src/**/*.ts",
+        "./src/scripts/google-auth.ts"
+    ]
 }

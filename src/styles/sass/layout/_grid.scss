@@ -1,0 +1,95 @@
+#root {
+    min-width: var(--breakpoint-tiny);
+    display: grid;
+    grid-template-rows: auto auto 11em;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+
+    @media (min-width: var(--breakpoint-mobile)) {
+        grid-template-columns: 1fr 2fr 6fr 2fr 1fr;
+        grid-template-areas:
+            "header header header header header"
+            "main main main main main"
+            "footer footer footer footer footer";
+    }
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    width: 100%;
+    grid-area: main;
+    background-color: var(--clr-accent);
+}
+
+footer {
+    grid-area: footer;
+}
+
+.post-create--wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 5rem auto 2em;
+    grid-template-columns: 3% 6fr 2% 17em 3%;
+    grid-template-areas:
+        ". post-create-title post-create-title post-create-title ."
+        ". post-create-playground . post-create-elements ."
+        ". . . . .";
+}
+
+.post-create--title {
+    grid-area: post-create-title;
+    text-align: center;
+}
+
+.post-create--playground {
+    grid-area: post-create-playground;
+    display: grid;
+    grid-template-rows: 20rem auto;
+    grid-template-columns: 2fr 8fr 2fr;
+    grid-template-areas:
+        "post-header post-header post-header"
+        "left-sidebar post-content right-sidebar";
+    width: 100%;
+    height: auto;
+    color: var(--clr-dark);
+    background-color: var(--clr-light);
+    overflow: auto;
+}
+
+.post-header {
+    grid-area: post-header;
+    border: 1px dashed var(--clr-accent-dark);
+    overflow: hidden;
+}
+
+.post-content {
+    grid-area: post-content;
+    border: 1px dashed var(--clr-accent-dark);
+}
+
+.post-create--elements {
+    grid-area: post-create-elements;
+    color: var(--clr-light);
+    background-color: var(--clr-dark);
+    padding-bottom: 2em;
+    margin-bottom: 2em;
+    min-height: 40em;
+    height: max-content;
+    position: sticky;
+    top: 2em;
+}
+
+.element__draggable {
+    padding: 0.5rem 2rem;
+    margin: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}

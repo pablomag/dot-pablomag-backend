@@ -1,0 +1,9 @@
+body,
+main {
+    @include font(var(--ff-body), var(--fs-base), var(--clr-dark));
+}
+
+main {
+    display: flex;
+    min-height: 65vh;
+}

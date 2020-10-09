@@ -1,0 +1,19 @@
+@import "./node_modules/@fortawesome/fontawesome-free/scss/v4-shims.scss";
+@import "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "./node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+@import "./node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+
+@font-face {
+    font-family: "Font Awesome 5 Brands";
+    font-style: normal;
+    font-weight: 400;
+    font-display: $fa-font-display;
+    src: url("#{$fa-font-path}/fa-brands-400.eot");
+    src: url("#{$fa-font-path}/fa-brands-400.eot?#iefix")
+        format("embedded-opentype");
+}
+
+.fab {
+    font-family: "Font Awesome 5 Brands";
+    font-weight: 400;
+}
