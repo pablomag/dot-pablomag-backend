@@ -26,6 +26,8 @@ const main = async (app: express.Application) => {
     app.use(compression());
     app.use(helmet());
 
+    app.set('trust proxy', true);
+
     app.engine(
         "hbs",
         hbs({

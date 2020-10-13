@@ -138,9 +138,10 @@ export class Playground {
 
         const imageServiceUrl = `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}`;
         try {
-            const { post, data } = await Playground.getPostBySlug(
+            const { post: item } = await Playground.getPostBySlug(
                 Playground.slug
             );
+            const { post, data } = item;
             if (!post) {
                 return false;
             }

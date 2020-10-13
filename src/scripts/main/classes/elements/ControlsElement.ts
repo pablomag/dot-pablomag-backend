@@ -1,6 +1,6 @@
 import fakeDOM from "./../FakeDOM";
 
-import { deleteImage, uploadImage } from "./../../utils/ImageUtils";
+import { deleteImage, uploadImage, searchImages, downloadImage } from "./../../utils/ImageUtils";
 import { IMG_SERVICE_URI, IMG_SERVICE_PORT } from "./../../../../constants";
 import { keyCodes, types, modifyText } from "../../utils/TextUtils";
 
@@ -13,6 +13,112 @@ export class ControlsElement {
         this._id = id;
         this.type = type;
         this.value = value;
+    }
+
+    searchElement() {
+        const wrapper = document.createElement(types.DIV);
+        const panel = document.createElement(types.DIV);
+        const main = document.querySelector("main");
+
+        wrapper.classList.add("panel-wrapper");
+        panel.classList.add("panel-img-search");
+
+        main!.appendChild(wrapper);
+
+        const template = `
+            <div class="search-wrapper">
+                <input type="text" id="imageSearch" class="input-controls input--search">
+                <div id="btnSearch" class="btn btn--search" value="search">Search</div>
+                <div id="searchResultText" class="search-result--text">Enter a keyword to search images related to it</div>
+            </div>
+            <div id="searchResultCanvas" class="search-result--canvas"></div>
+        `;
+
+        panel!.innerHTML = template;
+        wrapper!.appendChild(panel);
+
+        const doSearch = async () => {
+            const imgSearch: any = document.getElementById("imageSearch");
+            const keyword = imgSearch.value;
+            const searchResultText: any = document.getElementById("searchResultText");
+
+            const result = await searchImages(keyword);
+            const { images } = result;
+
+            const urls: string[] = [];
+            images.forEach((image: any) => {
+                const imgData: any = {
+                    id: image.id,
+                    alt_description: image.alt_description,
+                    thumb: image.urls.thumb,
+                    full: image.urls.full,
+                    regular: image.urls.regular,
+                    download: image.links.download,
+                    user: {
+                        id: image.user.id,
+                        name: image.user.name,
+                        username: image.user.username
+                    }
+                };
+                urls.push(imgData);
+            });
+
+            populateImages(urls);
+
+            searchResultText.innerHTML = result.message;
+        }
+
+        const selectAndDownload = async (event: any, images: any) => {
+            let imageSelected: any;
+            for (const image of images) {
+                if (image.id === event.target.id) {
+                    imageSelected = image;
+                }
+            }
+
+            const result = await downloadImage(imageSelected);
+            const { filename } = result;
+            if (filename) {
+                const imageServiceUrl = `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}`;
+                const path = `${imageServiceUrl}/images/${filename}`;
+
+                const heroElement: any = document.querySelector(".hero");
+                heroElement.firstElementChild.src = path;
+                fakeDOM.edit(heroElement.id, path);
+
+                wrapper.remove();
+            }
+        };
+
+        const populateImages = (images: any) => {
+            const searchResultCanvas: any = document.getElementById("searchResultCanvas");
+            searchResultCanvas.innerHTML = '';
+
+            const appName = ".pablomag";
+            for (const image of images) {
+                const imageElement = `
+                    <div class="image--thumb">
+                        <figure>
+                            <img id="${image.id}" src="${image.thumb}" alt="${image.alt_description}"
+                                data-user="${image.user.name}"
+                            >
+                        </figure>
+                        <p class="image--credit">
+                            Photo by <a href="https://unsplash.com/@${image.user.username}?utm_source=${appName}&utm_medium=referral">${image.user.name}</a> on <a href="https://unsplash.com/?utm_source${appName}&utm_medium=referral">Unsplash</a>
+                        </p>
+                    </div>
+                `;
+                searchResultCanvas.innerHTML += (imageElement);
+            }
+
+            for (const image of images) {
+                const imageLinkElement: any = document.getElementById(image.id);
+                imageLinkElement.addEventListener("click", (event: any) => selectAndDownload(event, images), false);
+            }
+        }
+
+        const btnSearch: any = document.getElementById("btnSearch");
+        btnSearch.addEventListener("click", doSearch, false);
     }
 
     editElement(event: any) {
@@ -158,7 +264,6 @@ export class ControlsElement {
         const oldImage = imageSrc.substr(imageSrc.lastIndexOf("/") + 1);
 
         const uploaded = await uploadImage(formData);
-
         if (uploaded) {
             const imageServiceUrl = `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}`;
             const path = `${imageServiceUrl}/images/${uploaded.image}`;
@@ -167,7 +272,6 @@ export class ControlsElement {
             fakeDOM.edit(element.id, path);
 
             const deleted = await deleteImage(oldImage);
-
             if (deleted) {
                 console.log(deleted.message);
             }

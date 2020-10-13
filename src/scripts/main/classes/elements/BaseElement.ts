@@ -4,6 +4,7 @@ import { ElementFactory } from "./../factory/ElementFactory";
 
 import { RemoveButtonElement } from "./RemoveButtonElement";
 import { EditButtonElement } from "./EditButtonElement";
+import { SearchButtonElement } from "./SearchButtonElement";
 import { InputTextElement } from "./InputTextElement";
 import { InputTextAreaElement } from "./InputTextAreaElement";
 import { InputFileElement } from "./InputFileElement";
@@ -176,6 +177,15 @@ export class BaseElement {
                 this.value
             );
             controls.appendChild(editButton.create());
+        }
+
+        if (list.includes("search")) {
+            const searchButton = new SearchButtonElement(
+                this._id,
+                this.type,
+                this.value
+            );
+            controls.appendChild(searchButton.create());
         }
 
         if (list.includes("input")) {

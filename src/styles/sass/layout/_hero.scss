@@ -70,10 +70,14 @@
     }
 
     &__remove {
-        right: 0.5rem;
+        right: 0.5em;
     }
 
     &__edit {
-        right: 2.5rem;
+        right: 2.5em;
+    }
+
+    &__search {
+        right: 4.5em;
     }
 }

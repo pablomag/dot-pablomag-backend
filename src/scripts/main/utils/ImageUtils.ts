@@ -22,6 +22,31 @@ export async function deleteImage(image: string) {
         },
         body: JSON.stringify({ image }),
     });
+    return response.json();
+}
 
+export async function searchImages(keyword: string) {
+    const url = `${imageServiceUrl}/image/search/${keyword}`;
+    const response = await fetch(url, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    return response.json();
+}
+
+export async function downloadImage(image: object) {
+    const url = `${imageServiceUrl}/image/download`;
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+        body: JSON.stringify({ image }),
+    });
     return response.json();
 }

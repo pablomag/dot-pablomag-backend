@@ -18,7 +18,7 @@ export class HeroElement extends BaseElement {
             type: types.DIV,
             id: `${this.type}-${this.id}`,
             classes: [this.type],
-            controls: ["remove", "edit", "file"],
+            controls: ["remove", "edit", "search", "file"],
         };
 
         const children = [

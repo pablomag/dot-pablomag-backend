@@ -22,12 +22,12 @@ router.get(
                 .populate("author", "name picture -_id")
                 .sort({ createdAt: -1 });
             if (posts.length === 0) {
-                return res.status(404).json({ message: "No posts found" });
+                return res.status(404).json({ status: "error", message: "No posts found" });
             }
 
-            return res.status(200).json({ posts });
+            return res.status(200).json({ status: "success", posts });
         } catch (error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({ status: "success", message: error.message });
         }
     }
 );
@@ -41,22 +41,26 @@ router.get(
                 "name picture -_id"
             );
             if (!post) {
-                return res.status(404).json({ message: "Post not found" });
+                return res.status(404).json({ status: "error", message: "Post not found" });
             }
 
             const postData = await PostData.find({ post });
             if (!postData) {
-                return res.status(400).json({ message: "No post data found" });
+                return res.status(400).json({ status: "error", message: "No post data found" });
             }
 
+            const ip = req.ip;
+            const liked = await Like.findOne({ post, ip });
+
             const postResponse = {
-                post: post,
+                post,
                 data: postData,
+                liked: !!liked
             };
 
-            return res.status(200).json(postResponse);
+            return res.status(200).json({ status: "success", post: postResponse });
         } catch (error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({ status: "error", message: error.message });
         }
     }
 );
@@ -68,18 +72,18 @@ router.get(
         if (validationError) {
             return res
                 .status(400)
-                .json({ message: validationError.details[0].message });
+                .json({ status: "error", message: validationError.details[0].message });
         }
 
         try {
             const post = await Post.findById(req.params.id);
             if (!post) {
-                return res.status(200).json({ message: "Post not found" });
+                return res.status(200).json({ status: "error", message: "Post not found" });
             }
 
-            return res.status(200).json(post);
+            return res.status(200).json({ status: "success", post });
         } catch (error) {
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({ status: "error", message: error.message });
         }
     }
 );
@@ -93,14 +97,14 @@ router.post(
         const user = req.session!.user[0];
         const author = await User.findOne({ userid: user.userid }, "_id name");
         if (!author) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ status: "error", message: "User not found" });
         }
 
         const validationError = validateObjectId(author!._id);
         if (validationError) {
             return res
                 .status(400)
-                .send({ message: validationError.details[0].message });
+                .send({ status: "error", message: validationError.details[0].message });
         }
 
         const tags = [...new Set(req.body.tags)];
@@ -150,11 +154,11 @@ router.post(
 
             await session.commitTransaction();
 
-            return res.status(200).json({ post });
+            return res.status(200).json({ status: "success", post });
         } catch (error) {
             await session.abortTransaction();
 
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({ status: "error", message: error.message });
         } finally {
             session.endSession();
         }
@@ -170,14 +174,14 @@ router.post(
         const user = req.session!.user[0];
         const author = await User.findOne({ userid: user.userid }, "_id name");
         if (!author) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ status: "error", message: "User not found" });
         }
 
         const validationError = validateObjectId(author!._id);
         if (validationError) {
             return res
                 .status(400)
-                .send({ message: validationError.details[0].message });
+                .send({ status: "error", message: validationError.details[0].message });
         }
 
         const tags = [...new Set(req.body.tags)];
@@ -221,11 +225,11 @@ router.post(
 
             await session.commitTransaction();
 
-            return res.status(200).json({ post });
+            return res.status(200).json({ status: "success", post });
         } catch (error) {
             await session.abortTransaction();
 
-            return res.status(500).json({ message: error.message });
+            return res.status(500).json({ status: "error", message: error.message });
         } finally {
             session.endSession();
         }
@@ -239,7 +243,7 @@ router.delete(
 
         const validationError = validateObjectId(id);
         if (validationError) {
-            return res.status(400).send(validationError.details[0].message);
+            return res.status(400).send({ status: "error", message: validationError.details[0].message });
         }
 
         const session: ClientSession = await mongoose.startSession();
@@ -255,15 +259,16 @@ router.delete(
 
             const postData: any = await PostData.deleteMany({ post: id });
             if (!postData) {
-                return res.status(400).json({ message: "Post data not found" });
+                return res.status(400).json({status: "error", message: "Post data not found" });
             }
 
             await session.commitTransaction();
 
-            return res.status(200).json({ message: "Post deleted" });
+            return res.status(200).json({ status: "success", message: "Post deleted" });
         } catch (error) {
             await session.abortTransaction();
             return res.status(500).json({
+                status: "error",
                 message: "An error has occurred while deleting the post",
             });
         } finally {
@@ -280,13 +285,13 @@ router.post(
 
         const post: any = await Post.findById(req.params.id);
         if (!post) {
-            return res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ status: "error", message: "Post not found" });
         }
         post.likes++;
 
-        const exists = await Like.findOne({ post, ip });
-        if (exists) {
-            return res.status(200).json({ message: "Post already liked" });
+        const liked = await Like.findOne({ post, ip });
+        if (liked) {
+            return res.status(200).json({ status: "error", message: "Post already liked" });
         }
 
         const like = new Like({
@@ -311,10 +316,10 @@ router.post(
 
             await session.commitTransaction();
 
-            res.status(200).json({ message: "Post liked" });
+            res.status(200).json({ status: "success", message: "Post liked" });
         } catch (error) {
             await session.abortTransaction();
-            res.status(500).json({ message: "Error while liking the post" });
+            res.status(500).json({ status: "error", message: "Error while liking the post" });
         } finally {
             session.endSession();
         }
