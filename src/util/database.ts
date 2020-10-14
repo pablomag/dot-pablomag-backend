@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
-import * as dotenv from "dotenv";
-
-dotenv.config({ path: "./.env" });
+import { DB_CONNECTION, DB_USER, DB_PASS } from "../constants";
 
 mongoose.set("useCreateIndex", true);
 mongoose.set("useUnifiedTopology", true);
 mongoose.set("useFindAndModify", false);
 
-const db = <string>process.env.DB_CONNECTION;
-const user = <string>process.env.DB_USER;
-const pass = <string>process.env.DB_PASS;
+const db = DB_CONNECTION;
+const user = DB_USER;
+const pass = DB_PASS;
 
 mongoose.connect(
     db,
@@ -18,9 +16,9 @@ mongoose.connect(
         pass,
         useNewUrlParser: true,
     },
-    (err: any) => {
-        if (err) {
-            console.error("Could not connect to MongoDB");
+    (error: any) => {
+        if (error) {
+            console.error("Could not connect to MongoDB", error);
         } else {
             console.info("MongoDB up and running");
         }

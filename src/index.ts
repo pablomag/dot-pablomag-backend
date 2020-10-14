@@ -26,7 +26,7 @@ const main = async (app: express.Application) => {
     app.use(compression());
     app.use(helmet());
 
-    app.set('trust proxy', true);
+    app.set("trust proxy", true);
 
     app.engine(
         "hbs",
@@ -82,7 +82,7 @@ const main = async (app: express.Application) => {
     app.use("/", express.static(path.join(__dirname, "/")));
 
     app.listen(API_PORT, () => {
-        console.info(`Server started on localhost:${API_PORT}`);
+        console.info(`Server started on localhost: ${API_PORT}`);
     });
 };
 
