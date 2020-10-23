@@ -10,7 +10,7 @@
         "sass": "node-sass src/styles/sass/main.scss -o dist/styles",
         "sass:watch": "yarn sass && node-sass src/styles/sass/main.scss -wo dist/styles",
         "webpack": "webpack --watch",
-        "build": "webpack --build",
+        "build": "webpack --build --mode production",
         "test": "jest --watchAll --runInBand --verbose --coverage",
         "testall": "jest --watch --onlyChanged --runInBand --verbose --coverage",
         "testsingle": "jest -t auth --watch --onlyChanged --runInBand --verbose"
