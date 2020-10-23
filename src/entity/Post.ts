@@ -1,4 +1,4 @@
-import Joi from "@hapi/joi";
+import Joi from "joi";
 import mongoose from "mongoose";
 import slug from "mongoose-slug-generator";
 

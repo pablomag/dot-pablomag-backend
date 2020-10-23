@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ValidationError } from "@hapi/joi";
+import { ValidationError } from "joi";
 
 export function validateObjectId(objectId: string): ValidationError | null {
     if (!mongoose.Types.ObjectId.isValid(objectId)) {
