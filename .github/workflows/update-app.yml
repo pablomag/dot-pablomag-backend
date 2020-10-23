@@ -19,7 +19,7 @@ jobs:
           script: |
             cd /var/www/dot-pablomag/server
             sudo git pull
-            sudo npm install --production
+            sudo npm install --production --unsafe-perm
             sudo tsc
             sudo npm run build
             sudo npm run sass

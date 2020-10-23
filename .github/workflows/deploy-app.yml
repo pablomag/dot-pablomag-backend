@@ -23,7 +23,7 @@ jobs:
             sudo mv dot-pablomag-backend server
             cd server
             sudo apt install node-typescript
-            sudo npm install --production
+            sudo npm install --production --unsafe-perm
             sudo npm install pm2 -g
             sudo tsc
             sudo npm run build
