@@ -1,0 +1,45 @@
+name: Deploy backend server
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH, create .env and deploy backend server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASS }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /var/www
+            sudo mkdir dot-pablomag
+            cd dot-pablomag
+            sudo git clone https://github.com/pablomag/dot-pablomag-backend.git
+            sudo mv dot-pablomag-backend server
+            cd server
+            sudo apt install node-typescript
+            sudo npm install --production
+            sudo npm install pm2 -g
+            sudo tsc
+            sudo npm run build
+            sudo npm run sass
+            sudo touch .env
+            sudo bash -c "echo API_URI=${{ secrets.API_URI }} >> .env"
+            sudo bash -c "echo API_PORT=${{ secrets.API_PORT }} >> .env"
+            sudo bash -c "echo API_SECRET='`echo ${{ secrets.API_SECRET }} | base64 --decode`' >> .env"
+            sudo bash -c "echo CLIENT_URI=${{ secrets.CLIENT_URI }} >> .env"
+            sudo bash -c "echo CLIENT_PORT=${{ secrets.CLIENT_PORT }} >> .env"
+            sudo bash -c "echo IMG_SERVICE_URI=${{ secrets.IMG_SERVICE_URI }} >> .env"
+            sudo bash -c "echo IMG_SERVICE_PORT=${{ secrets.IMG_SERVICE_PORT }} >> .env"
+            sudo bash -c "echo DB_CONNECTION='`echo ${{ secrets.DB_CONNECTION }} | base64 --decode`' >> .env"
+            sudo bash -c "echo DB_USER=${{ secrets.DB_USER }} >> .env"
+            sudo bash -c "echo DB_PASS='`echo ${{ secrets.DB_PASS }} | base64 --decode`' >> .env"
+            sudo bash -c "echo GOOGLE_CLIENT_ID='`echo ${{ secrets.GOOGLE_CLIENT_ID }} | base64 --decode`' >> .env"
+            sudo pm2 start pm2.config.js
+            sudo pm2 startup ubuntu -u ${{ secrets.SSH_USER }}
+            sudo pm2 save

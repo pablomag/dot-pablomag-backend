@@ -2,14 +2,15 @@
     "name": "dot-pablomag-server",
     "version": "1.1.0",
     "description": ".pablomag :: Personal Blog",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
+        "dev": "nodemon -r dotenv/config dist/server.js",
+        "prod": "node -r dotenv/config dist/server.js",
         "watch": "tsc -w",
         "sass": "node-sass src/styles/sass/main.scss -o dist/styles",
         "sass:watch": "yarn sass && node-sass src/styles/sass/main.scss -wo dist/styles",
         "webpack": "webpack --watch",
-        "dev": "nodemon -r dotenv/config dist/index.js",
-        "prod": "node -r dotenv/config dist/index.js",
+        "build": "webpack --build",
         "test": "jest --watchAll --runInBand --verbose --coverage",
         "testall": "jest --watch --onlyChanged --runInBand --verbose --coverage",
         "testsingle": "jest -t auth --watch --onlyChanged --runInBand --verbose"
@@ -36,9 +37,7 @@
         "mongoose": "^5.10.6",
         "mongoose-slug-generator": "^1.0.4",
         "redis": "^3.0.2",
-        "uuid": "^8.3.0"
-    },
-    "devDependencies": {
+        "uuid": "^8.3.0",
         "@types/body-parser": "^1.19.0",
         "@types/compression": "^1.7.0",
         "@types/connect-redis": "^0.0.14",
@@ -56,10 +55,12 @@
         "@types/uuid": "^8.3.0",
         "copy-webpack-plugin": "^6.1.1",
         "node-sass": "^4.14.1",
-        "nodemon": "^2.0.4",
         "ts-loader": "^8.0.4",
         "typescript": "^4.0.3",
         "webpack": "^4.44.2",
         "webpack-cli": "^3.3.12"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
     }
 }

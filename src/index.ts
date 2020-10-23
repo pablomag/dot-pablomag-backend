@@ -8,9 +8,9 @@ import moment from "moment";
 
 import { generateNonce, getDirectives } from "./util/csp";
 
-import { ENV_PRODUCTION, CLIENT_URI, API_SECRET, API_PORT, CLIENT_PORT } from "./constants";
+import { ENV_PRODUCTION, CLIENT_URI, API_SECRET, CLIENT_PORT } from "./constants";
 
-const app = express();
+export const app = express();
 
 const main = async (app: express.Application) => {
     require("./util/database");
@@ -80,10 +80,6 @@ const main = async (app: express.Application) => {
     require("./router/index")(app);
 
     app.use("/", express.static(path.join(__dirname, "/")));
-
-    app.listen(API_PORT, () => {
-        console.info(`Server started on localhost: ${API_PORT}`);
-    });
 };
 
 main(app).catch((error) => {
