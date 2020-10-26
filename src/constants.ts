@@ -13,6 +13,10 @@ export const CLIENT_PORT = process.env.CLIENT_PORT || 3000;
 export const IMG_SERVICE_URI = process.env.IMG_SERVICE_URI || "http://localhost";
 export const IMG_SERVICE_PORT = process.env.IMG_SERVICE_PORT || 3333;
 
+export const REDIS_HOST = process.env.REDIS_HOST || "http://localhost";
+export const REDIS_PORT = parseInt(process.env.REDIS_PORT!) || 6379;
+export const REDIS_PASS = process.env.REDIS_PASS || "";
+
 export const DB_CONNECTION = process.env.DB_CONNECTION || "mongodb://host:port/dbname?authSource=table"
 export const DB_USER = process.env.DB_USER || "good"
 export const DB_PASS = process.env.DB_PASS || "gorilla"

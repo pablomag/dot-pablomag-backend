@@ -8,7 +8,7 @@ import moment from "moment";
 
 import { generateNonce, getDirectives } from "./util/csp";
 
-import { ENV_PRODUCTION, CLIENT_URI, API_SECRET, CLIENT_PORT } from "./constants";
+import { ENV_PRODUCTION, CLIENT_URI, API_SECRET, CLIENT_PORT, REDIS_HOST, REDIS_PORT, REDIS_PASS } from "./constants";
 
 export const app = express();
 
@@ -21,7 +21,11 @@ const main = async (app: express.Application) => {
     const csp = require("helmet-csp");
 
     const RedisStore = connectRedis(session);
-    const redisClient = redis.createClient();
+    const redisClient = redis.createClient({
+        port: REDIS_PORT,
+        host: REDIS_HOST,
+        password: REDIS_PASS
+    });
 
     app.use(compression());
     app.use(helmet());

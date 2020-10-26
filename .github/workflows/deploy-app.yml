@@ -36,10 +36,13 @@ jobs:
             sudo bash -c "echo CLIENT_PORT=${{ secrets.CLIENT_PORT }} >> .env"
             sudo bash -c "echo IMG_SERVICE_URI=${{ secrets.IMG_SERVICE_URI }} >> .env"
             sudo bash -c "echo IMG_SERVICE_PORT=${{ secrets.IMG_SERVICE_PORT }} >> .env"
+            sudo bash -c "echo REDIS_HOST=${{ secrets.REDIS_HOST }} >> .env"
+            sudo bash -c "echo REDIS_PORT=${{ secrets.REDIS_PORT }} >> .env"
+            sudo bash -c "echo REDIS_PASS=${{ secrets.REDIS_PASS }} >> .env"
             sudo bash -c "echo DB_CONNECTION='`echo ${{ secrets.DB_CONNECTION }} | base64 --decode`' >> .env"
             sudo bash -c "echo DB_USER=${{ secrets.DB_USER }} >> .env"
             sudo bash -c "echo DB_PASS='`echo ${{ secrets.DB_PASS }} | base64 --decode`' >> .env"
             sudo bash -c "echo GOOGLE_CLIENT_ID='`echo ${{ secrets.GOOGLE_CLIENT_ID }} | base64 --decode`' >> .env"
             sudo pm2 start pm2.config.js
-            sudo pm2 startup ubuntu -u ${{ secrets.SSH_USER }}
+            sudo pm2 startup systemd -u ${{ secrets.SSH_USER }}
             sudo pm2 save
