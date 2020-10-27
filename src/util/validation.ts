@@ -17,7 +17,7 @@ export function validateObjectId(objectId: string): ValidationError | null {
             annotate: (): string => {
                 return "true";
             },
-            _object: {},
+            _original: []
         };
     }
     return null;
