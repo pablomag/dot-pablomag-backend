@@ -2,7 +2,7 @@ import { Playground } from "../main/classes/Playground";
 import { ElementFactory } from "../main/classes/factory/ElementFactory";
 import { deleteImage } from "../main/utils/ImageUtils";
 
-import { API_PORT, API_URI } from "./../../constants";
+import { API_URL } from "./../../constants";
 
 const url = window.location.pathname.toLowerCase();
 
@@ -25,7 +25,7 @@ if (url.startsWith("/post/list")) {
     }
 
     async function postDelete(id: string) {
-        const apiUrl = `${API_URI}:${API_PORT}/api`;
+        const apiUrl = `${API_URL}/api`;
         const url = `${apiUrl}/post/delete/${id}`;
 
         try {

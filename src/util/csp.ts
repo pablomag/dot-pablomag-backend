@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { IMG_SERVICE_URI, IMG_SERVICE_PORT } from "./../constants";
+import { API_URL, IMG_SERVICE_URL } from "./../constants";
 
 function getNonce(_: any, res: any) {
     return `'nonce-${res.locals.nonce}'`;
@@ -15,25 +15,35 @@ export function getDirectives() {
     const self = `'self'`;
     const unsafeInline = `'unsafe-inline'`;
     const scripts = [
+        `${API_URL}/`,
         `https://www.google-analytics.com/`,
         `https://maps.googleapis.com/`,
         `https://apis.google.com/`,
         `https://accounts.google.com/`,
     ];
-    const styles = [`https://fonts.googleapis.com/`];
-    const fonts = [`https://fonts.gstatic.com/`];
+    const styles = [
+        `${API_URL}/`,
+        `https://fonts.googleapis.com/`
+    ];
+    const fonts = [
+        `${API_URL}/`,
+        `https://fonts.gstatic.com/`
+    ];
     const frames = [
+        `${API_URL}/`,
         `https://www.youtube.com/`,
         `https://apis.google.com/`,
         `https://accounts.google.com/`,
     ];
     const images = [
-        `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}/`,
+        `${API_URL}/`,
+        `${IMG_SERVICE_URL}/`,
         `https:`,
         `data:`,
     ];
     const connect = [
-        `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}/`,
+        `${API_URL}/`,
+        `${IMG_SERVICE_URL}/`,
         `https://api.github.com/`,
         `https://maps.googleapis.com/`,
         `https://apis.google.com/`,

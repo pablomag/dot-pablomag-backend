@@ -1,6 +1,6 @@
-import { IMG_SERVICE_URI, IMG_SERVICE_PORT } from "./../../../constants";
+import { IMG_SERVICE_URL } from "./../../../constants";
 
-const imageServiceUrl = `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}`;
+const imageServiceUrl = `${IMG_SERVICE_URL}`;
 
 export async function uploadImage(formData: FormData) {
     const url = `${imageServiceUrl}/image/upload`;

@@ -4,10 +4,8 @@ import { ElementFactory } from "./factory/ElementFactory";
 import { TagElement } from "./../classes/elements/TagElement";
 
 import {
-    API_PORT,
-    API_URI,
-    IMG_SERVICE_URI,
-    IMG_SERVICE_PORT,
+    API_URL,
+    IMG_SERVICE_URL,
 } from "./../../../constants";
 
 const CREATE = "create";
@@ -42,7 +40,7 @@ export class Playground {
     }
 
     static async submitPost(post: any) {
-        const apiUrl = `${API_URI}:${API_PORT}/api`;
+        const apiUrl = `${API_URL}/api`;
 
         let url: string;
         if (Playground.action === CREATE) {
@@ -90,7 +88,7 @@ export class Playground {
             // TODO: Change this ugly alert
             alert(errorMessage);
 
-            const imageServiceUrl = `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}`;
+            const imageServiceUrl = `${IMG_SERVICE_URL}`;
             const imgElement: any = document.querySelector(".hero");
 
             if (imgElement && imgElement.childNodes[0]) {
@@ -136,7 +134,7 @@ export class Playground {
             return false;
         }
 
-        const imageServiceUrl = `${IMG_SERVICE_URI}:${IMG_SERVICE_PORT}`;
+        const imageServiceUrl = `${IMG_SERVICE_URL}`;
         try {
             const { post: item } = await Playground.getPostBySlug(
                 Playground.slug
@@ -266,7 +264,7 @@ export class Playground {
     }
 
     static async getPostBySlug(slug: string) {
-        const apiUrl = `${API_URI}:${API_PORT}/api`;
+        const apiUrl = `${API_URL}/api`;
         const url = `${apiUrl}/post/slug/${slug}`;
 
         return await fetch(url, { method: "GET" })

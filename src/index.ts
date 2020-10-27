@@ -8,7 +8,7 @@ import moment from "moment";
 
 import { generateNonce, getDirectives } from "./util/csp";
 
-import { ENV_PRODUCTION, CLIENT_URI, API_SECRET, CLIENT_PORT, REDIS_HOST, REDIS_PORT, REDIS_PASS } from "./constants";
+import { ENV_PRODUCTION, CLIENT_URL, API_SECRET, REDIS_HOST, REDIS_PORT, REDIS_PASS } from "./constants";
 
 export const app = express();
 
@@ -50,7 +50,7 @@ const main = async (app: express.Application) => {
 
     app.use(
         cors({
-            origin: `${CLIENT_URI}:${CLIENT_PORT}`,
+            origin: `${CLIENT_URL}`,
             credentials: true,
         })
     );

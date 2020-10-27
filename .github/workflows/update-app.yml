@@ -19,10 +19,10 @@ jobs:
           script: |
             cd /var/www/dot-pablomag/server
             sudo git pull
-            sudo npm install --production --unsafe-perm
+            sudo yarn install
+            sudo yarn build
+            sudo yarn sass
             sudo tsc
-            sudo npm run build
-            sudo npm run sass
             sudo rm .env
             sudo touch .env
             sudo bash -c "echo API_URI=${{ secrets.API_URI }} >> .env"
