@@ -24,9 +24,9 @@ const main = async (app: express.Application) => {
     const redisClient = redis.createClient({
         port: REDIS_PORT,
         host: REDIS_HOST,
-        //password: REDIS_PASS
+        password: REDIS_PASS
     });
-console.log(REDIS_PASS);
+
     app.use(compression());
     app.use(helmet());
 
