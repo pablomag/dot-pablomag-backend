@@ -1,9 +1,7 @@
 import { IMG_SERVICE_URL } from "./../../../constants";
 
-const imageServiceUrl = `${IMG_SERVICE_URL}`;
-
 export async function uploadImage(formData: FormData) {
-    const url = `${imageServiceUrl}/image/upload`;
+    const url = `${IMG_SERVICE_URL}/image/upload`;
     const response = await fetch(url, {
         method: "POST",
         credentials: "include",
@@ -13,7 +11,7 @@ export async function uploadImage(formData: FormData) {
 }
 
 export async function deleteImage(image: string) {
-    const url = `${imageServiceUrl}/image/delete`;
+    const url = `${IMG_SERVICE_URL}/image/delete`;
     const response = await fetch(url, {
         method: "DELETE",
         credentials: "include",
@@ -26,7 +24,7 @@ export async function deleteImage(image: string) {
 }
 
 export async function searchImages(keyword: string) {
-    const url = `${imageServiceUrl}/image/search/${keyword}`;
+    const url = `${IMG_SERVICE_URL}/image/search/${keyword}`;
     const response = await fetch(url, {
         method: "GET",
         credentials: "include",
@@ -38,7 +36,7 @@ export async function searchImages(keyword: string) {
 }
 
 export async function downloadImage(image: object) {
-    const url = `${imageServiceUrl}/image/download`;
+    const url = `${IMG_SERVICE_URL}/image/download`;
     const response = await fetch(url, {
         method: "POST",
         credentials: "include",

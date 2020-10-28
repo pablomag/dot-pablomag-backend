@@ -25,9 +25,7 @@ if (url.startsWith("/post/list")) {
     }
 
     async function postDelete(id: string) {
-        const apiUrl = `${API_URL}/api`;
-        const url = `${apiUrl}/post/delete/${id}`;
-
+        const url = `${API_URL}/api/post/delete/${id}`;
         try {
             await fetch(url, { method: "DELETE" });
             location.href = "/post/list";

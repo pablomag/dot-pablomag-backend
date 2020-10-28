@@ -22,7 +22,6 @@ jobs:
             sudo yarn install
             sudo yarn build
             sudo yarn sass
-            sudo tsc
             sudo rm .env
             sudo touch .env
             sudo bash -c "echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env"

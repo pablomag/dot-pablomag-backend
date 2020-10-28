@@ -40,13 +40,11 @@ export class Playground {
     }
 
     static async submitPost(post: any) {
-        const apiUrl = `${API_URL}/api`;
-
         let url: string;
         if (Playground.action === CREATE) {
-            url = `${apiUrl}/post/save`;
+            url = `${API_URL}/api/post/save`;
         } else {
-            url = `${apiUrl}/post/edit/${Playground.slug}`;
+            url = `${API_URL}/api/post/edit/${Playground.slug}`;
         }
 
         post.fakeDOM = fakeDOM;
@@ -88,11 +86,10 @@ export class Playground {
             // TODO: Change this ugly alert
             alert(errorMessage);
 
-            const imageServiceUrl = `${IMG_SERVICE_URL}`;
             const imgElement: any = document.querySelector(".hero");
 
             if (imgElement && imgElement.childNodes[0]) {
-                imgElement.childNodes[0].src = `${imageServiceUrl}/images/${data.image}`;
+                imgElement.childNodes[0].src = `${IMG_SERVICE_URL}/images/${data.image}`;
             }
 
             return false;
@@ -134,7 +131,6 @@ export class Playground {
             return false;
         }
 
-        const imageServiceUrl = `${IMG_SERVICE_URL}`;
         try {
             const { post: item } = await Playground.getPostBySlug(
                 Playground.slug
@@ -164,7 +160,7 @@ export class Playground {
                 const type = item.type;
                 const value =
                     item.type === "HERO"
-                        ? `${imageServiceUrl}/images/${item.value}`
+                        ? `${IMG_SERVICE_URL}/images/${item.value}`
                         : item.value;
 
                 dataTransfer.setData("text", type);
@@ -264,8 +260,7 @@ export class Playground {
     }
 
     static async getPostBySlug(slug: string) {
-        const apiUrl = `${API_URL}/api`;
-        const url = `${apiUrl}/post/slug/${slug}`;
+        const url = `${API_URL}/api/post/slug/${slug}`;
 
         return await fetch(url, { method: "GET" })
             .then((res) => res.json())

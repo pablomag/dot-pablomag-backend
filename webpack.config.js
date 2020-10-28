@@ -1,5 +1,5 @@
 const path = require("path");
-
+const Dotenv = require("dotenv-webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const mode = process.env.NODE_ENV ? "development" : process.env.NODE_ENV;
@@ -35,6 +35,10 @@ module.exports = [
       filename: "./dist/scripts/app.js",
     },
     plugins: [
+      new Dotenv({
+        allowEmptyValues: false,
+        silent: false,
+      }),
       new CopyPlugin({
         patterns: [
           {

@@ -10,7 +10,7 @@
         "sass": "node-sass src/styles/sass/main.scss -o dist/styles",
         "sass:watch": "yarn sass && node-sass src/styles/sass/main.scss -wo dist/styles",
         "webpack": "webpack --watch",
-        "build": "webpack --build --mode production",
+        "build": "webpack --build --mode production && tsc",
         "test": "jest --watchAll --runInBand --verbose --coverage",
         "testall": "jest --watch --onlyChanged --runInBand --verbose --coverage",
         "testsingle": "jest -t auth --watch --onlyChanged --runInBand --verbose"
@@ -39,6 +39,7 @@
         "copy-webpack-plugin": "^6.1.1",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
+        "dotenv-webpack": "^4.0.0",
         "express": "^4.17.1",
         "express-handlebars": "^5.1.0",
         "express-session": "^1.17.1",

@@ -29,8 +29,6 @@ jobs:
             sudo yarn install
             sudo yarn build
             sudo yarn sass
-            sudo apt-get install node-typescript
-            sudo tsc
             sudo touch .env
             sudo bash -c "echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env"
             sudo bash -c "echo API_URI=${{ secrets.API_URI }} >> .env"

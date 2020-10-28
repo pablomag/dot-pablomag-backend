@@ -79,8 +79,7 @@ export class ControlsElement {
             const result = await downloadImage(imageSelected);
             const { filename } = result;
             if (filename) {
-                const imageServiceUrl = `${IMG_SERVICE_URL}`;
-                const path = `${imageServiceUrl}/images/${filename}`;
+                const path = `${IMG_SERVICE_URL}/images/${filename}`;
 
                 const heroElement: any = document.querySelector(".hero");
                 heroElement.firstElementChild.src = path;
@@ -265,8 +264,7 @@ export class ControlsElement {
 
         const uploaded = await uploadImage(formData);
         if (uploaded) {
-            const imageServiceUrl = `${IMG_SERVICE_URL}`;
-            const path = `${imageServiceUrl}/images/${uploaded.image}`;
+            const path = `${IMG_SERVICE_URL}/images/${uploaded.image}`;
 
             element.firstElementChild.src = path;
             fakeDOM.edit(element.id, path);
