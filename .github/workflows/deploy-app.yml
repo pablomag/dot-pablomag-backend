@@ -32,6 +32,7 @@ jobs:
             sudo apt-get install node-typescript
             sudo tsc
             sudo touch .env
+            sudo bash -c "echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env"
             sudo bash -c "echo API_URI=${{ secrets.API_URI }} >> .env"
             sudo bash -c "echo API_PORT=${{ secrets.API_PORT }} >> .env"
             sudo bash -c "echo API_SECRET='`echo ${{ secrets.API_SECRET }} | base64 --decode`' >> .env"

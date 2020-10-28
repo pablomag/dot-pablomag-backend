@@ -4,11 +4,11 @@ export const PROJECT_VERSION = "1.1.0";
 export const ENV_PRODUCTION = process.env.NODE_ENV === "production";
 
 export const API_PORT = process.env.API_PORT || 5555;
-export const API_URL = process.env.API_URL ?? `http://localhost:${API_PORT}`;
+export const API_URL = process.env.API_URL || `http://localhost:${API_PORT}`;
 export const API_SECRET = process.env.API_SECRET || "bubblegum_cat";
 
-export const CLIENT_URL = process.env.CLIENT_URL ?? "http://localhost:3000";
-export const IMG_SERVICE_URL = process.env.IMG_SERVICE_URL ?? "http://localhost:3333";
+export const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+export const IMG_SERVICE_URL = process.env.IMG_SERVICE_URL || "http://localhost:3333";
 
 export const REDIS_HOST = process.env.REDIS_HOST || "http://localhost";
 export const REDIS_PORT = parseInt(process.env.REDIS_PORT!) || 6379;
