@@ -2,13 +2,11 @@ import express from "express";
 import bodyParser from "../middleware/bodyParser";
 
 import { OAuth2Client } from "google-auth-library";
-import { GOOGLE_CLIENT_ID } from "../constants";
+import { GOOGLE_CLIENT_ID, ACCEPT_NEW_USERS } from "../constants";
 import { User } from "../entity/User";
 
 const router = express.Router();
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
-
-const acceptingNewUsers = true;
 
 router.post(
     "/tokensignout",
@@ -59,9 +57,9 @@ router.post(
             });
 
             if (user.length === 0) {
-                if (acceptingNewUsers) {
+                if (ACCEPT_NEW_USERS) {
                     user = await createUser(googleUser).catch((error: any) => {
-                        console.error("Not accepting users error", error);
+                        console.error("Error while creating a new user", error);
                     });
                 } else {
                     return res

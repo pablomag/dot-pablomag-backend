@@ -43,6 +43,7 @@ jobs:
             sudo bash -c "echo DB_USER=${{ secrets.DB_USER }} >> .env"
             sudo bash -c "echo DB_PASS='`echo ${{ secrets.DB_PASS }} | base64 --decode`' >> .env"
             sudo bash -c "echo GOOGLE_CLIENT_ID='`echo ${{ secrets.GOOGLE_CLIENT_ID }} | base64 --decode`' >> .env"
+            sudo bash -c "echo ACCEPT_NEW_USERS=${{ secrets.ACCEPT_NEW_USERS }} >> .env"
             pm2 start pm2.config.js
             pm2 startup systemd -u ${{ secrets.SSH_USER }}
             pm2 save --force

@@ -19,3 +19,4 @@ export const DB_USER = process.env.DB_USER || "good"
 export const DB_PASS = process.env.DB_PASS || "gorilla"
 
 export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "google.client.id";
+export const ACCEPT_NEW_USERS = process.env.ACCEPT_NEW_USERS || false;
