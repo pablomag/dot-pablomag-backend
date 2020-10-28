@@ -38,6 +38,7 @@ function onSignIn(googleUser: any): void {
      * console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
      * console.log("Token: " + googleUser.getAuthResponse().id_token);
      */
+    console.log('onsignin');
     sendTokenToAPI(
         googleUser.getAuthResponse().id_token,
         googleAuthSignInURL
@@ -74,10 +75,9 @@ async function sendTokenToAPI(id_token: string, url: string): Promise<any> {
             Authorization: id_token,
         },
     })
-        .then((response: Response) => response.json())
-        .then((redirect: Boolean) => {
-            return redirect;
-        });
-
+    .then((response: Response) => response.json())
+    .then((data: any) => {
+        return data.redirect;
+    });
     return result;
 }

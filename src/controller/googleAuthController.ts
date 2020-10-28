@@ -19,7 +19,7 @@ router.post(
             }
         });
 
-        res.send(JSON.stringify({ message: "User signed out" }));
+        res.status(200).send({ message: "User signed out" });
     }
 );
 
@@ -33,7 +33,10 @@ router.post(
     ): Promise<any> => {
         const token = req.header("Authorization");
         if (!token) {
-            return res.status(401).send("Access denied. No token provided.");
+            return res.status(401).send({ message: "Access denied. No token provided."});
+        }
+        if (req.session!.user) {
+            return res.status(200).send({ message: "User already logged in", redirect: false });
         }
 
         try {
@@ -43,12 +46,12 @@ router.post(
 
             if (googleUser === "unverified") {
                 console.error("User unverified", googleUser);
-                return res.status(401).send("Access denied. Unauthorized.");
+                return res.status(401).send({ message: "Access denied. Unauthorized." });
             }
 
             if (googleUser === "expired") {
                 console.error("User expired", googleUser);
-                return res.status(401).send("Access denied. Token expired.");
+                return res.status(401).send({ message: "Access denied. Token expired." });
             }
 
             let user = await checkForUser(googleUser).catch((error: any) => {
@@ -63,17 +66,14 @@ router.post(
                 } else {
                     return res
                         .status(401)
-                        .send(
-                            "Sorry, we are currently not accepting new users"
-                        );
+                        .send({ message: "Sorry, we are currently not accepting new users" });
                 }
             }
 
-            req.session!.redirect = !req.session!.token && !req.session!.user;
             req.session!.token = token;
             req.session!.user = user;
 
-            res.send(req.session!.redirect);
+            return res.status(200).send({ message: "User logged in successfully", redirect: true });
         } catch (err) {
             next(err);
         }
