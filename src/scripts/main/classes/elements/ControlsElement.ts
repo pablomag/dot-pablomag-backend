@@ -1,7 +1,7 @@
 import fakeDOM from "./../FakeDOM";
 
 import { deleteImage, uploadImage, searchImages, downloadImage } from "./../../utils/ImageUtils";
-import { IMG_SERVICE_URL } from "./../../../../constants";
+import { IMG_SERVICE_URL } from "./../../constants";
 import { keyCodes, types, modifyText } from "../../utils/TextUtils";
 
 export class ControlsElement {

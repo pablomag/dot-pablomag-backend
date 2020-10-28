@@ -1,4 +1,4 @@
-import { IMG_SERVICE_URL } from "./../../../constants";
+import { IMG_SERVICE_URL } from "./../constants";
 
 export async function uploadImage(formData: FormData) {
     const url = `${IMG_SERVICE_URL}/image/upload`;

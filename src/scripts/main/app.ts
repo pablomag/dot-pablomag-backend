@@ -2,7 +2,7 @@ import { Playground } from "../main/classes/Playground";
 import { ElementFactory } from "../main/classes/factory/ElementFactory";
 import { deleteImage } from "../main/utils/ImageUtils";
 
-import { API_URL } from "./../../constants";
+import { API_URL } from "./constants";
 
 const url = window.location.pathname.toLowerCase();
 

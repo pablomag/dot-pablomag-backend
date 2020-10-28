@@ -6,7 +6,7 @@ import { TagElement } from "./../classes/elements/TagElement";
 import {
     API_URL,
     IMG_SERVICE_URL,
-} from "./../../../constants";
+} from "./../constants";
 
 const CREATE = "create";
 const EDIT = "edit";

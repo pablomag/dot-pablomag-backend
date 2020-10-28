@@ -35,10 +35,7 @@ module.exports = [
       filename: "./dist/scripts/app.js",
     },
     plugins: [
-      new Dotenv({
-        allowEmptyValues: false,
-        silent: false,
-      }),
+      new Dotenv(),
       new CopyPlugin({
         patterns: [
           {
