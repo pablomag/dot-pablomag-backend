@@ -18,6 +18,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd /var/www/dot-pablomag/server
+            sudo git reset --hard
             sudo git pull
             sudo rm .env
             sudo touch .env
