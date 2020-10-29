@@ -26,11 +26,9 @@ jobs:
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
             sudo apt-get update && sudo apt-get install yarn -y
-            sudo yarn install
-            sudo yarn build
-            sudo yarn sass
             sudo touch .env
             sudo bash -c "echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env"
+            sudo bash -c "echo API_URL=${{ secrets.API_URL }} >> .env"
             sudo bash -c "echo API_URI=${{ secrets.API_URI }} >> .env"
             sudo bash -c "echo API_PORT=${{ secrets.API_PORT }} >> .env"
             sudo bash -c "echo API_SECRET='`echo ${{ secrets.API_SECRET }} | base64 --decode`' >> .env"
@@ -44,6 +42,9 @@ jobs:
             sudo bash -c "echo DB_PASS='`echo ${{ secrets.DB_PASS }} | base64 --decode`' >> .env"
             sudo bash -c "echo GOOGLE_CLIENT_ID='`echo ${{ secrets.GOOGLE_CLIENT_ID }} | base64 --decode`' >> .env"
             sudo bash -c "echo ACCEPT_NEW_USERS=${{ secrets.ACCEPT_NEW_USERS }} >> .env"
+            sudo yarn install
+            sudo yarn build
+            sudo yarn sass
             pm2 start pm2.config.js
             pm2 startup systemd -u ${{ secrets.SSH_USER }}
             pm2 save --force

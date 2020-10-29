@@ -19,12 +19,10 @@ jobs:
           script: |
             cd /var/www/dot-pablomag/server
             sudo git pull
-            sudo yarn install
-            sudo yarn build
-            sudo yarn sass
             sudo rm .env
             sudo touch .env
             sudo bash -c "echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env"
+            sudo bash -c "echo API_URL=${{ secrets.API_URL }} >> .env"
             sudo bash -c "echo API_URI=${{ secrets.API_URI }} >> .env"
             sudo bash -c "echo API_PORT=${{ secrets.API_PORT }} >> .env"
             sudo bash -c "echo API_SECRET='`echo ${{ secrets.API_SECRET }} | base64 --decode`' >> .env"
@@ -38,4 +36,7 @@ jobs:
             sudo bash -c "echo DB_PASS='`echo ${{ secrets.DB_PASS }} | base64 --decode`' >> .env"
             sudo bash -c "echo GOOGLE_CLIENT_ID='`echo ${{ secrets.GOOGLE_CLIENT_ID }} | base64 --decode`' >> .env"
             sudo bash -c "echo ACCEPT_NEW_USERS=${{ secrets.ACCEPT_NEW_USERS }} >> .env"
+            sudo yarn install
+            sudo yarn build
+            sudo yarn sass
             pm2 restart pm2.config.js
