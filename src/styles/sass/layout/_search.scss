@@ -1,3 +1,7 @@
+.btn--search:hover {
+    background-color: var(--clr-brand);
+}
+
 .panel-wrapper {
     display: flex;
     position: absolute;
@@ -24,20 +28,29 @@
 
 .search-result {
     background-color: beige;
+
+    &--canvas {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &--loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.6);
+
+        &--hidden {
+            display: none;
+        }
+    }
 }
 
 .input--search {
     margin: 0 0 0 3em;
     width: 25em;
-}
-
-.btn--search:hover {
-    background-color: var(--clr-brand);
-}
-
-.search-result--canvas {
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .image--thumb {

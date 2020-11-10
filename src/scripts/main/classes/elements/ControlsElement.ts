@@ -1,7 +1,14 @@
 import fakeDOM from "./../FakeDOM";
 
-import { deleteImage, uploadImage, searchImages, downloadImage } from "./../../utils/ImageUtils";
+import {
+    deleteImage,
+    uploadImage,
+    searchImages,
+    downloadImage,
+} from "./../../utils/ImageUtils";
+
 import { IMG_SERVICE_URL } from "./../../constants";
+
 import { keyCodes, types, modifyText } from "../../utils/TextUtils";
 
 export class ControlsElement {
@@ -32,7 +39,46 @@ export class ControlsElement {
                 <div id="searchResultText" class="search-result--text">Enter a keyword to search images related to it</div>
             </div>
             <div id="searchResultCanvas" class="search-result--canvas"></div>
-        `;
+            <div id="searchLoadingOverlay" class="search-result--loader search-result--loader--hidden">
+                <div class="loader--container">
+                    <div class="loader" title="loading">
+                        <svg
+                            version="1.1"
+                            id="loader-1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            x="0px"
+                            y="0px"
+                            width="40px"
+                            height="40px"
+                            viewBox="0 0 40 40"
+                            enableBackground="new 0 0 40 40"
+                        >
+                            <path
+                                opacity="0.2"
+                                fill="#000"
+                                d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                                s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+                                c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"
+                            />
+                            <path
+                                fill="#000"
+                                d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                                C22.32,8.481,24.301,9.057,26.013,10.047z"
+                            >
+                                <animateTransform
+                                    attributeType="xml"
+                                    attributeName="transform"
+                                    type="rotate"
+                                    from="0 20 20"
+                                    to="360 20 20"
+                                    dur="0.5s"
+                                    repeatCount="indefinite"
+                                />
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+            </div>`;
 
         panel!.innerHTML = template;
         wrapper!.appendChild(panel);
@@ -40,7 +86,9 @@ export class ControlsElement {
         const doSearch = async () => {
             const imgSearch: any = document.getElementById("imageSearch");
             const keyword = imgSearch.value;
-            const searchResultText: any = document.getElementById("searchResultText");
+            const searchResultText: any = document.getElementById(
+                "searchResultText"
+            );
 
             const result = await searchImages(keyword);
             const { images } = result;
@@ -57,8 +105,8 @@ export class ControlsElement {
                     user: {
                         id: image.user.id,
                         name: image.user.name,
-                        username: image.user.username
-                    }
+                        username: image.user.username,
+                    },
                 };
                 urls.push(imgData);
             });
@@ -66,7 +114,18 @@ export class ControlsElement {
             populateImages(urls);
 
             searchResultText.innerHTML = result.message;
-        }
+        };
+
+        const deleteOldImage = async () => {
+            const element: any = document.querySelector(".hero");
+            const imageSrc = element.firstElementChild.src;
+            const oldImage = imageSrc.substr(imageSrc.lastIndexOf("/") + 1);
+
+            const deleted = await deleteImage(oldImage);
+            if (deleted) {
+                console.log(deleted.message);
+            }
+        };
 
         const selectAndDownload = async (event: any, images: any) => {
             let imageSelected: any;
@@ -76,22 +135,30 @@ export class ControlsElement {
                 }
             }
 
+            const loader: any = document.getElementById("searchLoadingOverlay");
+            loader.classList.remove("search-result--loader--hidden");
+
+            await deleteOldImage();
+
             const result = await downloadImage(imageSelected);
             const { filename } = result;
             if (filename) {
-                const path = `${IMG_SERVICE_URL}/images/${filename}`;
+                const path = `${IMG_SERVICE_URL}/images/desktop/${filename}`;
 
                 const heroElement: any = document.querySelector(".hero");
                 heroElement.firstElementChild.src = path;
                 fakeDOM.edit(heroElement.id, path);
 
+                loader.classList.add("search-result--loader--hidden");
                 wrapper.remove();
             }
         };
 
         const populateImages = (images: any) => {
-            const searchResultCanvas: any = document.getElementById("searchResultCanvas");
-            searchResultCanvas.innerHTML = '';
+            const searchResultCanvas: any = document.getElementById(
+                "searchResultCanvas"
+            );
+            searchResultCanvas.innerHTML = "";
 
             const appName = ".pablomag";
             for (const image of images) {
@@ -107,14 +174,18 @@ export class ControlsElement {
                         </p>
                     </div>
                 `;
-                searchResultCanvas.innerHTML += (imageElement);
+                searchResultCanvas.innerHTML += imageElement;
             }
 
             for (const image of images) {
                 const imageLinkElement: any = document.getElementById(image.id);
-                imageLinkElement.addEventListener("click", (event: any) => selectAndDownload(event, images), false);
+                imageLinkElement.addEventListener(
+                    "click",
+                    (event: any) => selectAndDownload(event, images),
+                    false
+                );
             }
-        }
+        };
 
         const btnSearch: any = document.getElementById("btnSearch");
         btnSearch.addEventListener("click", doSearch, false);
@@ -264,7 +335,7 @@ export class ControlsElement {
 
         const uploaded = await uploadImage(formData);
         if (uploaded) {
-            const path = `${IMG_SERVICE_URL}/images/${uploaded.image}`;
+            const path = `${IMG_SERVICE_URL}/images/desktop/${uploaded.image}`;
 
             element.firstElementChild.src = path;
             fakeDOM.edit(element.id, path);

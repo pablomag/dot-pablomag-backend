@@ -1,6 +1,12 @@
 {
     "overrides": [
         {
+            "files": "*.*",
+            "options": {
+                "tabWidth": 4
+            }
+        },
+        {
             "files": "*.yml",
             "options": {
                 "tabWidth": 2

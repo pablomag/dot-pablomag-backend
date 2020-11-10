@@ -10,13 +10,14 @@ import auth from "../middleware/authCheck";
 module.exports = function (app: Application) {
     app.use("/api/google", googleAuth);
 
-    app.use((_: Request, res: Response, next: NextFunction) => {
+    app.use((req: Request, res: Response, next: NextFunction) => {
         res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
         res.header("Access-Control-Allow-Origin", "*");
         res.header(
             "Access-Control-Allow-Headers",
             "Origin, X-Requested-With, Content-Type, Accept"
         );
+        console.log(`${req.method}: ${req.url}`);
         next();
     });
 

@@ -3,10 +3,7 @@ import fakeDOM from "./../classes/FakeDOM";
 import { ElementFactory } from "./factory/ElementFactory";
 import { TagElement } from "./../classes/elements/TagElement";
 
-import {
-    API_URL,
-    IMG_SERVICE_URL,
-} from "./../constants";
+import { API_URL, IMG_SERVICE_URL } from "./../constants";
 
 const CREATE = "create";
 const EDIT = "edit";
@@ -89,7 +86,7 @@ export class Playground {
             const imgElement: any = document.querySelector(".hero");
 
             if (imgElement && imgElement.childNodes[0]) {
-                imgElement.childNodes[0].src = `${IMG_SERVICE_URL}/images/${data.image}`;
+                imgElement.childNodes[0].src = `${IMG_SERVICE_URL}/images/desktop/${data.image}`;
             }
 
             return false;
@@ -160,7 +157,7 @@ export class Playground {
                 const type = item.type;
                 const value =
                     item.type === "HERO"
-                        ? `${IMG_SERVICE_URL}/images/${item.value}`
+                        ? `${IMG_SERVICE_URL}/images/desktop/${item.value}`
                         : item.value;
 
                 dataTransfer.setData("text", type);
