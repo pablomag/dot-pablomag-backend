@@ -10,6 +10,7 @@ import { generateNonce, getDirectives } from "./util/csp";
 
 import {
     ENV_PRODUCTION,
+    COOKIE_DOMAIN,
     CLIENT_URL,
     API_SECRET,
     REDIS_HOST,
@@ -79,6 +80,7 @@ const main = async (app: express.Application) => {
                 httpOnly: !ENV_PRODUCTION,
                 sameSite: "lax",
                 secure: ENV_PRODUCTION,
+                domain: COOKIE_DOMAIN,
             },
             secret: API_SECRET,
             resave: false,

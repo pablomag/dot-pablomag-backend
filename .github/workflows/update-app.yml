@@ -23,6 +23,7 @@ jobs:
             sudo rm .env
             sudo touch .env
             sudo bash -c "echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env"
+            sudo bash -c "echo COOKIE_DOMAIN=${{ secrets.COOKIE_DOMAIN }} >> .env"
             sudo bash -c "echo API_URL=${{ secrets.API_URL }} >> .env"
             sudo bash -c "echo API_URI=${{ secrets.API_URI }} >> .env"
             sudo bash -c "echo API_PORT=${{ secrets.API_PORT }} >> .env"

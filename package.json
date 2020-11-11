@@ -9,7 +9,7 @@
         "watch": "tsc -w",
         "sass": "node-sass src/styles/sass/main.scss -o dist/styles",
         "sass:watch": "yarn sass && node-sass src/styles/sass/main.scss -wo dist/styles",
-        "webpack": "webpack --watch",
+        "webpack": "webpack --watch --mode development",
         "build": "webpack --build --mode production && tsc",
         "test": "jest --watchAll --runInBand --verbose --coverage",
         "testall": "jest --watch --onlyChanged --runInBand --verbose --coverage",
