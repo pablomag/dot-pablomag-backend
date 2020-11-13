@@ -25,7 +25,7 @@ export async function validate(newLike: ILike) {
         ip: Joi.string().min(3).max(20).required(),
     });
 
-    if (!mongoose.Types.ObjectId.isValid(newLike.post))
+    if (!mongoose.Types.ObjectId.isValid(newLike.post)) {
         return {
             error: {
                 isJoi: true,
@@ -33,6 +33,7 @@ export async function validate(newLike: ILike) {
                 details: [{ message: "Validation error: Invalid author" }],
             },
         };
+    }
 
     return await schema.validateAsync(newLike);
 }

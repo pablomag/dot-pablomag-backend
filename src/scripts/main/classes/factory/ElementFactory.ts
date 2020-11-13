@@ -61,7 +61,7 @@ export class ElementFactory {
         if (
             type !== elementTypes.HERO &&
             type !== elementTypes.TITLE &&
-            event.target.classList.contains("post-header")
+            !event.target.classList.contains("post-content")
         ) {
             return false;
         }

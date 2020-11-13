@@ -118,9 +118,7 @@ export class BaseElement {
 
         if (
             (sourceId.startsWith("hero") && !targetId.startsWith("title")) ||
-            (sourceId.startsWith("title") &&
-                !targetId.startsWith("hero") &&
-                !targetId.startsWith("title"))
+            (sourceId.startsWith("title") && !targetId.startsWith("hero"))
         ) {
             return false;
         }
@@ -141,15 +139,21 @@ export class BaseElement {
 
         if (isSwappable) {
             const parentElement = targetElement!.parentNode;
-            const nextElement = targetElement!.nextSibling;
-
-            if (sourceElement === nextElement)
+            const targetNextElement = targetElement!.nextSibling;
+            const sourceNextElement = sourceElement!.nextSibling;
+            if (sourceElement === targetNextElement) {
                 parentElement!.insertBefore(sourceElement!, targetElement!);
-            else
-                sourceElement!.parentNode!.insertBefore(
-                    targetElement!,
-                    sourceElement!
-                );
+            } else {
+                if (!sourceNextElement) {
+                    parentElement!.insertBefore(targetElement!, sourceElement);
+                } else {
+                    parentElement!.insertBefore(
+                        targetElement!,
+                        sourceNextElement
+                    );
+                }
+                parentElement!.insertBefore(sourceElement!, targetNextElement!);
+            }
 
             fakeDOM.swap(sourceId, targetId);
         }

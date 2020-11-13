@@ -11,8 +11,10 @@ export class HeroElement extends BaseElement {
         this.id = id;
     }
 
-    create(): HTMLElement {
-        if (BaseElement.elementExists(this.type)) return new HTMLElement();
+    create(): HTMLElement | null {
+        if (BaseElement.elementExists(this.type)) {
+            return null;
+        }
 
         const parent = {
             type: types.DIV,

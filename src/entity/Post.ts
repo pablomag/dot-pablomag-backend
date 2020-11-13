@@ -74,7 +74,7 @@ export async function validate(newPost: IPost) {
         comments: Joi.number().integer().min(0).max(1000000).optional(),
     });
 
-    if (!mongoose.Types.ObjectId.isValid(newPost.author))
+    if (!mongoose.Types.ObjectId.isValid(newPost.author)) {
         return {
             error: {
                 isJoi: true,
@@ -82,6 +82,7 @@ export async function validate(newPost: IPost) {
                 details: [{ message: "Validation error: Invalid author" }],
             },
         };
+    }
 
     return await schema.validateAsync(newPost);
 }

@@ -12,8 +12,6 @@ export class TipElement extends BaseElement {
     }
 
     create(): HTMLElement {
-        if (BaseElement.elementExists(this.type)) return new HTMLElement();
-
         const count = BaseElement.countElementsByClass("post-note");
 
         const parent = {

@@ -1,4 +1,5 @@
 import { elementTypes } from "./factory/ElementFactory";
+import { BaseElement } from "./elements/BaseElement";
 
 class fakeDOM {
     static instance: any;
@@ -14,14 +15,26 @@ class fakeDOM {
     }
 
     add(item: any) {
-        if (item.type === elementTypes.HERO) {
-            item.value = this.trimUrl(item);
+        const index =
+            BaseElement.elementExists("hero") ||
+            BaseElement.elementExists("sticky-title")
+                ? 1
+                : 0;
+        switch (item.type) {
+            case elementTypes.HERO:
+                item.value = this.trimUrl(item);
+                this._data.splice(index, 0, item);
+                break;
+            case elementTypes.TITLE:
+                this._data.splice(index, 0, item);
+                break;
+            case elementTypes.SUBTITLE:
+                item.value = item.value.toUpperCase();
+                this._data.push(item);
+                break;
+            default:
+                this._data.push(item);
         }
-        if (item.type === elementTypes.SUBTITLE) {
-            item.value = item.value.toUpperCase();
-        }
-
-        this._data.push(item);
     }
 
     edit(id: string, value: string) {

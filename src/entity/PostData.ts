@@ -5,6 +5,7 @@ interface IPostData {
     post: string;
     type: string;
     value: string;
+    order: number;
 }
 
 const postDataSchema = new mongoose.Schema({
@@ -21,6 +22,10 @@ const postDataSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    order: {
+        type: Number,
+        required: true,
+    },
 });
 
 export async function validate(newPostData: IPostData) {
@@ -28,16 +33,18 @@ export async function validate(newPostData: IPostData) {
         author: Joi.optional(),
         type: Joi.string().min(1).required(),
         value: Joi.string().min(1).required(),
+        order: Joi.number().min(0).required(),
     });
 
-    /*if (!mongoose.Types.ObjectId.isValid(newPostData.post))
-        return (error = {
+    if (!mongoose.Types.ObjectId.isValid(newPostData.post)) {
+        return {
             error: {
                 isJoi: true,
                 name: "ValidationError",
                 details: [{ message: "Validation error: Invalid post" }],
             },
-        });*/
+        };
+    }
 
     return await schema.validateAsync(newPostData);
 }

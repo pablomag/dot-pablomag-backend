@@ -65,8 +65,8 @@ export class Playground {
 
     static preparePost() {
         const data = {
-            title: fakeDOM.getPostTitle(),
             image: fakeDOM.getPostImage(),
+            title: fakeDOM.getPostTitle(),
             content: Playground.playground!.lastElementChild!.outerHTML,
             tags: TagElement.tags,
         };

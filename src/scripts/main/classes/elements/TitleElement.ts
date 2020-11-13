@@ -11,9 +11,9 @@ export class TitleElement extends BaseElement {
         this.id = id;
     }
 
-    create(): HTMLElement {
+    create(): HTMLElement | null {
         if (BaseElement.elementExists("sticky-title")) {
-            return new HTMLElement();
+            return null;
         }
 
         const count = BaseElement.countElementsByClass("post-title");
